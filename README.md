@@ -1,4 +1,17 @@
 ## Alfresco ADF automation QA exercise
+***Description*** 
+The spec.js file should be updated  with the latest changes 
+In terminal window of the project should be run: protractor conf.js
+
+***Explanation*** 
+In my local project I've created a file for each page tested and/or passed through and create methods so that I can reuse the same code multiple times, but to conform with the request I've moved all the code for the tests in the spec.js file.
+I've tried to follow a logical and natural E2E flow for tests.
+I didn't succeed in re-create the duplicate name folder message as I just couldn't send any keys to the name or description field the second time I've opened the new folder dialog window (no matter how many times and how many different scenarios between them).
+
+***Prerequisites*** 
+No additional programs are needed.
+
+
 
 Do you love automation testing and you know how to solve the following exercise? Contact us! We may have a job for you :)
 * https://jobs.smartrecruiters.com/Alfresco/743999676099136-senior-qa-automation-engineer
