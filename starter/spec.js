@@ -40,6 +40,8 @@ var deleteFolderOptionButton = element(by.css('button[data-automation-id="DOCUME
 var errorMessage =element(by.css('snack-bar-container[role*=\'alert\']'));
 var deleteConfirmationAlert = element(by.css('.mat-snack-bar-container'));
 
+var anotherTry = element(by.css('div[aria-live="assertive"]'));
+
 describe('ADF Demo App', function() {
 
     describe('Homepage ADF Demo App', function(){
@@ -178,11 +180,17 @@ describe('ADF Demo App', function() {
             newFolderName.click().then(function(){
                 threeDots.click().then(function(){
                     expect(folderMenuOptions.isDisplayed()).toBe(true).then(function(){
-                        deleteFolderOptionButton.click();
-                            //.then(function(){
-                           //browser.wait(EC.visibilityOf(deleteConfirmationAlert), 5000);
-                           // browser.wait(EC.alertIsPresent(), 5000);
-                        //})
+                        deleteFolderOptionButton.click().then(function () {
+                            browser.wait(EC.visibilityOf(anotherTry), 5000).then(function () {
+                                expect((anotherTry).isDisplayed()).toBe(true);
+                                anotherTry.getText().then(function (text) {
+                                    expect(text).toContain('deleted');
+                                    console.log("Yupiii - it containd deleted")
+                                })
+                            })
+                        });
+
+
                     })
                 })
 
