@@ -41,6 +41,7 @@ var errorMessage =element(by.css('snack-bar-container[role*=\'alert\']'));
 var deleteConfirmationAlert = element(by.css('.mat-snack-bar-container'));
 
 var anotherTry = element(by.css('div[aria-live="assertive"]'));
+var cancelFolderButton = element(by.css('#adf-folder-cancel-button'));
 
 describe('ADF Demo App', function() {
 
@@ -154,26 +155,23 @@ describe('ADF Demo App', function() {
             expect(newFolderName.isDisplayed()).toBe(true);
         });
 
-        // it('should check for a duplicate message', function(){
-        //   // Click on "Create new folder" icon
-        //     createNewFolderIcon.click().then(function(){
-        //         browser.wait(EC.presenceOf(newFolderDialogBox), 5000).then(function(){
-        //             expect((newFolderDialogBox).isDisplayed()).toBe(true);
-        //         })
-        //     });
-        //     //Set the name as before
-        //     browser.wait(EC.elementToBeClickable((gitHubUsernameField), 5000)).then(function(){
-        //         gitHubUsernameField.click().then(function(){
-        //             gitHubUsernameField.sendKeys(githubUsername);
-        //         });
-        //     });
-        //     //Try to create the folder and verify that the dialog box is still displayed
-        //     createButton.click().then(function(){
-        //         expect((newFolderDialogBox).isPresent()).toBe(true);
-        //     });
-        //     //Verify that duplicate message error is displayed
-        //     expect(errorMessage.isDisplayed()).toBe(true);
-        // });
+         it('should check for a duplicate message and close the "Create new folder" dialog window', function(){
+           // Click on "Create new folder" icon
+            createNewFolderIcon.click();
+            //Set the name as before
+            gitHubUsernameField.sendKeys(githubUsername);
+            //Try to create the folder and Verify that duplicate message error is displayed
+            createButton.click();
+            expect(errorMessage.isDisplayed()).toBe(true);
+            errorMessage.getText().then(function (text) {
+                expect(text).toContain('There\'s already a folder with this name. Try a different name.');
+
+            });
+            cancelFolderButton.click();
+            browser.wait(EC.invisibilityOf(newFolderDialogBox), 5000);
+            expect((newFolderDialogBox).isPresent()).toBe(false);
+
+        });
 
         it('should delete my new folder', function(){
             //Selects a specified folder and deletes it
